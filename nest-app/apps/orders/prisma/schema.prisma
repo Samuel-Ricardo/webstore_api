@@ -16,4 +16,11 @@ model Order {
   price     Int
   client_id Int
   createdAt DateTime @default(now())
+  status    OrderStatus
+}
+
+enum OrderStatus {
+  PENDING
+  PAYED
+  CANCELED
 }
