@@ -58,3 +58,11 @@ services:
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
 
+
+  mysql:
+    image: mysql:8.0.30-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    
