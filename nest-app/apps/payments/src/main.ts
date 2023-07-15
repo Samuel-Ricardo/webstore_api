@@ -10,7 +10,7 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: ['kafka:9092'],
+        brokers: ['kafka:29092'],
       },
       consumer: {
         groupId: 'payments-consumer',
@@ -38,6 +38,6 @@ async function bootstrap() {
   SwaggerModule.setup('docs/payments', app, document);
 
   await app.startAllMicroservices();
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

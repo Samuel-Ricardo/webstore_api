@@ -1,11 +1,22 @@
 version: '3'
 
 services:
-  app:
+  order:
     build: .
     entrypoint: ["npm", "run", "start:docker"]
     ports:
       - 3000:3000
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - mysql
+      - kafka
+        
+  payment:
+    build: .
+    entrypoint: ["npm", "run", "start:docker", "payments"]
+    ports:
+      - 3001:3001
     volumes:
       - .:/home/node/app
     depends_on:

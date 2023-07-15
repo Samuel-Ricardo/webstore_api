@@ -14,7 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         options: {
           client: {
             clientId: 'payments',
-            brokers: ['kafka:9092'],
+            brokers: ['kafka:29092'],
           },
         },
       },

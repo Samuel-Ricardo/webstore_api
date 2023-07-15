@@ -2,9 +2,10 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrderDTO } from './order.dto';
 import { OrderStatus } from '.prisma/client/orders';
+import { PaymentStatus } from '.prisma/client/payments';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller()
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
@@ -28,7 +29,9 @@ export class OrdersController {
     console.log(message);
     await this.ordersService.complete(
       message.order_id,
-      message.status === 'APROVED' ? OrderStatus.PAYED : OrderStatus.CANCELED,
+      message.status === PaymentStatus.APPROVED
+        ? OrderStatus.PAYED
+        : OrderStatus.CANCELED,
     );
   }
 }
