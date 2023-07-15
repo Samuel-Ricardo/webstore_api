@@ -16,5 +16,11 @@ model Payment {
   amount      Int
   order_id    Int
   client_id   Int
-  created_at  DateTime @default(now()) 
+  created_at  DateTime @default(now())
+  status      PaymentStatus
+}
+
+enum PaymentStatus {
+  APPROVED
+  REJECTED
 }
