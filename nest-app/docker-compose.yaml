@@ -8,6 +8,9 @@ services:
       - 3000:3000
     volumes:
       - .:/home/node/app
+    depends_on:
+      - mysql
+      - kafka
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -26,6 +29,7 @@ services:
     depends_on:
       - zookeeper
     ports:
+      - 29092:29092
       - 9092:9092
       - 9094:9094
     environment:
