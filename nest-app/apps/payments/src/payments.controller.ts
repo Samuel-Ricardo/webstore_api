@@ -5,8 +5,13 @@ import { PaymentsService } from './payments.service';
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
-  @Get()
+  @Get('hello2')
   getHello(): string {
     return this.paymentsService.getHello();
+  }
+
+  @Get()
+  all() {
+    return this.paymentsService.all();
   }
 }
