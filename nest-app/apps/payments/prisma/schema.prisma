@@ -3,9 +3,18 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../../../node_modules/.prisma/client/payments"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Payment {
+  id          Int    @id @default(autoincrement())
+  amount      Int
+  order_id    Int
+  client_id   Int
+  created_at  DateTime @default(now()) 
 }
