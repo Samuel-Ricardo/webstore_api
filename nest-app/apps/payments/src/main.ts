@@ -1,9 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { PaymentsModule } from './payments.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(PaymentsModule);
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['kafka:9092'],
+      },
+      consumer: {
+        groupId: 'payments-consumer',
+      },
+    },
+  });
 
   const configDoc = new DocumentBuilder()
     .setTitle('Payments')
@@ -24,6 +37,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, configDoc);
   SwaggerModule.setup('docs/payments', app, document);
 
+  await app.startAllMicroservices();
   await app.listen(3000);
 }
 bootstrap();
